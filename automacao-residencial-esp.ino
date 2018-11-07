@@ -8,13 +8,13 @@
 
 
 // MQTT
-/* Topico gerado a partir da hash md5 "julianofranciscoangeli/casa".
+/* Topico gerado a partir da hash md5 "$TOPICO_PUBLISH$".
  * Publish padrao para envio do status eh /get_situacao
  * Publish padrao para setar o staus eh /set_situacao
  */
-#define topicoPublish "5ED8E7F3DEDD33AE1F120321DDB222DB/get_situacao"
-#define topicoSubscribe "5ED8E7F3DEDD33AE1F120321DDB222DB/set_situacao"
-#define idMQTT "angeliESPCasaLigaLampada"
+#define topicoPublish "$TOPICO_PUBLISH$"
+#define topicoSubscribe "$TOPICO_SUBSCRIBE$"
+#define idMQTT "$ID_MQTT$"
 
 const char* brokerMQTT = "iot.eclipse.org"; //URL do broker MQTT que se deseja utilizar
 int brokerPort = 1883; // Porta do Broker MQTT
@@ -22,8 +22,8 @@ int brokerPort = 1883; // Porta do Broker MQTT
 
 
 //WIFI
-const char* ssid = "homewifi_F98";
-const char* password = "12831618";
+const char* ssid = "$WIFI_SSID$";
+const char* password = "$WIFI_PASSWORD$";
 
 WiFiClient espClient; // Cria o objeto espClient
 PubSubClient MQTT(espClient); // Instancia o Cliente MQTT passando o objeto espClient
@@ -91,10 +91,10 @@ void setup() {
    ArduinoOTA.setPort(8266);
 
   // Hostname defaults to esp8266-[ChipID]
-   ArduinoOTA.setHostname("angeliESPAquarioReposicaoAgua");
+   ArduinoOTA.setHostname("$ESP_HOSTNAME$");
 
   // No authentication by default
-   ArduinoOTA.setPassword("12qwaszx");
+   ArduinoOTA.setPassword("$ESP_PASSWORD$");
 
   // Password can be set with it's md5 value as well
   // MD5(admin) = 21232f297a57a5a743894a0e4a801fc3
@@ -320,7 +320,7 @@ void publicarSituacao()
 {
   
   String json;
-  json.concat("{componente:angeliESPCasaLigaLampada,tempo_em_execucao:");
+  json.concat("{componente:$ESP_HOSTNAME$,tempo_em_execucao:");
   json.concat(millis() / 1000);                    //tempo total em execucao, pode ser que reinicie depois de certo tempo
   json.concat(",estado:");
   json.concat(situacaoLigaDesligaLampada);              //situacao da lampada
